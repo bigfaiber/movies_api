@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :v1 do
-    resources :movies
+    get 'top100', to: 'movies#top100'
+    resources :movies do
+    end
   end
   devise_for :users,
              path: '',

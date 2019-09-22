@@ -1,6 +1,13 @@
 class V1::MoviesController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @movies = Movie.all
+    render json: @movies, status: :ok
+  end
+
+  def top100
+    @movies = Movie.top_rated[0...100]
     render json: @movies, status: :ok
   end
 
@@ -8,7 +15,7 @@ class V1::MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     render json: @movie, status: 200
   end
-  
+
   def create
     @movie = Movie.new(movie_params)
     @movie.save
